@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const { campgroundSchema } = require("../schema.js");
 const catchAsync = require("../utils/catchAsync");
+const { campgroundSchema } = require("../schema.js");
+const { isLoggedIn } = require("../middleware");
+
 const ExpressError = require("../utils/ExpressError");
 const Campground = require("../models/campground");
 
@@ -25,12 +27,13 @@ router.get("/", async (req, res) => {
   res.render("campgrounds/index", { campgrounds });
 });
 
-router.get("/new", async (req, res) => {
+router.get("/new", isLoggedIn, async (req, res) => {
   res.render("campgrounds/new");
 });
 
 router.post(
   "/",
+  isLoggedIn,
   validateCampground,
   catchAsync(async (req, res) => {
     // { campground: { title: 'hihi', location: 'hehe' } }
@@ -61,6 +64,7 @@ router.get(
 
 router.get(
   "/:id/edit",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     // { id: '64276323fb2e1403d87b1e9a' }
     // console.log(req.params);
@@ -75,6 +79,7 @@ router.get(
 
 router.put(
   "/:id",
+  isLoggedIn,
   validateCampground,
   catchAsync(async (req, res) => {
     // { campground: { title: 'hehe', location: 'hihi' } }
@@ -90,6 +95,7 @@ router.put(
 
 router.delete(
   "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     // { id: '64276323fb2e1403d87b1e9a' }
     // console.log(req.params);
