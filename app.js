@@ -59,7 +59,11 @@ passport.deserializeUser(User.deserializeUser());
 
 // Don't have to pass anything to routes
 app.use((req, res, next) => {
-  // console.log(req.session);
+  // Importent!!
+  if (!["/login", "/"].includes(req.originalUrl)) {
+    req.session.returnTo = req.originalUrl;
+    console.log(req.session.returnTo);
+  }
   res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
