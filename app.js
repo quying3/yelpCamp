@@ -159,7 +159,8 @@ app.use("/campgrounds", campgroundsRoutes);
 app.use("/campgrounds/:id/reviews", reviewsRoutes);
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("mobileHome");
+  // res.render("home");
 });
 
 app.all("*", (req, res, next) => {
@@ -179,6 +180,6 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
+app.listen(3000, () => {
   console.log(`Serving on port ${port}`);
 });
