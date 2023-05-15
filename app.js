@@ -159,8 +159,8 @@ app.use("/campgrounds", campgroundsRoutes);
 app.use("/campgrounds/:id/reviews", reviewsRoutes);
 
 app.get("/", (req, res) => {
-  res.render("mobileHome");
-  // res.render("home");
+  // res.render("mobileHome");
+  res.render("home");
 });
 
 app.all("*", (req, res, next) => {
